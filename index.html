@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* Uygulama Ekranı Çerçevesi */
+        /* Uygulama Ekran Çerçevesi */
         .app-wrapper {
             width: 100%;
             max-width: 440px;
@@ -76,7 +76,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            display: none; /* Sadece alt sayfalarda görünecek */
+            display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -110,7 +110,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            position: relative;
         }
 
         /* Sayfa Ekranları */
@@ -138,21 +137,11 @@
             color: white;
             margin-bottom: 20px;
             position: relative;
-            overflow: hidden;
             box-shadow: 0 8px 16px rgba(107, 33, 168, 0.25);
         }
 
-        .banner h3 {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .banner p {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
+        .banner h3 { font-size: 18px; font-weight: 700; }
+        .banner p { font-size: 12px; opacity: 0.8; margin-top: 4px; }
         .banner .tag {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
@@ -180,13 +169,11 @@
             gap: 10px;
             box-shadow: var(--shadow);
             cursor: pointer;
-            transition: all 0.2s ease;
             border: 1px solid #e2e8f0;
+            transition: transform 0.15s;
         }
 
-        .menu-item:active {
-            transform: scale(0.95);
-        }
+        .menu-item:active { transform: scale(0.95); }
 
         .menu-icon {
             width: 46px;
@@ -198,13 +185,8 @@
             font-size: 20px;
         }
 
-        .menu-item span {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+        .menu-item span { font-size: 12px; font-weight: 600; color: var(--text-main); }
 
-        /* Renk Paleti */
         .bg-orange { background: #fff3ed; color: #f97316; }
         .bg-blue { background: #eff6ff; color: #2563eb; }
         .bg-green { background: #f0fdf4; color: #16a34a; }
@@ -266,17 +248,8 @@
             align-items: center;
         }
 
-        .lesson-info h4 {
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        .lesson-info p {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
+        .lesson-info h4 { font-size: 14px; color: var(--text-main); }
+        .lesson-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
         .lesson-time {
             font-size: 11px;
             font-weight: 700;
@@ -303,23 +276,9 @@
             margin-bottom: 8px;
         }
 
-        .hw-title {
-            font-weight: 700;
-            font-size: 13px;
-        }
-
-        .hw-teacher {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .hw-dates {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-
+        .hw-title { font-weight: 700; font-size: 13px; }
+        .hw-teacher { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+        .hw-dates { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
         .hw-status {
             display: flex;
             align-items: center;
@@ -329,17 +288,8 @@
             border-top: 1px dashed #e2e8f0;
         }
 
-        .badge-done {
-            color: #16a34a;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .badge-pending {
-            color: #dc2626;
-            font-weight: 700;
-            font-size: 12px;
-        }
+        .badge-done { color: #16a34a; font-weight: 700; font-size: 12px; }
+        .badge-pending { color: #dc2626; font-weight: 700; font-size: 12px; }
 
         /* --- ÖĞRETMENLERİM SAYFASI --- */
         .teacher-card {
@@ -353,16 +303,8 @@
             box-shadow: var(--shadow);
         }
 
-        .teacher-info h4 {
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        .teacher-info p {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
+        .teacher-info h4 { font-size: 14px; color: var(--text-main); }
+        .teacher-info p { font-size: 12px; color: var(--text-muted); }
         .msg-btn {
             background: #f1f5f9;
             border: none;
@@ -397,23 +339,9 @@
             font-size: 12px;
         }
 
-        .calendar-day-head {
-            font-weight: bold;
-            color: var(--text-muted);
-            padding-bottom: 6px;
-        }
-
-        .calendar-date {
-            padding: 8px 0;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .calendar-date.active {
-            background: #00b4d8;
-            color: white;
-            font-weight: bold;
-        }
+        .calendar-day-head { font-weight: bold; color: var(--text-muted); padding-bottom: 6px; }
+        .calendar-date { padding: 8px 0; border-radius: 8px; cursor: pointer; }
+        .calendar-date.active { background: #00b4d8; color: white; font-weight: bold; }
 
         .add-event-btn {
             width: 100%;
@@ -428,11 +356,105 @@
             box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
         }
 
+        /* --- SINAV SONUÇLARI & KARNE EKRANI --- */
+        .exam-item {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-item:hover { border-color: #00b4d8; }
+
+        .report-tabs {
+            display: flex;
+            background: #e2e8f0;
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 12px;
+        }
+
+        .report-tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .report-tab.active {
+            background: white;
+            color: #dc2626;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .score-box {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .score-box h1 { font-size: 32px; font-weight: 800; }
+        .score-box p { font-size: 12px; opacity: 0.9; }
+
+        .ranks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .rank-card {
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .rank-card span { font-size: 10px; color: var(--text-muted); display: block; }
+        .rank-card strong { font-size: 14px; color: var(--text-main); }
+
+        .lesson-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-box h5 { font-size: 12px; margin-bottom: 4px; color: var(--text-main); }
+        .stat-box .net-info { font-size: 11px; color: var(--text-muted); }
+
         /* --- YÜKLENİYOR (LOADING) OVERLAY --- */
         .loader-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -440,37 +462,19 @@
             z-index: 200;
         }
 
-        .loader-overlay.active {
-            display: flex;
-        }
+        .loader-overlay.active { display: flex; }
 
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #f97316;
+            border-top: 4px solid #00b4d8;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .loader-text {
-            margin-top: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        .loader-subtext {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* FOOTER */
         footer {
             text-align: center;
             padding: 12px;
@@ -485,17 +489,17 @@
 
     <div class="app-wrapper">
         
-        <!-- Yükleniyor Simülasyon Ekranı -->
+        <!-- Yükleme Ekranı -->
         <div class="loader-overlay" id="loader">
             <div class="spinner"></div>
-            <div class="loader-text" id="loaderTitle">Lütfen bekleyin...</div>
-            <div class="loader-subtext">Veriler yükleniyor</div>
+            <div class="loader-text" id="loaderTitle" style="margin-top:12px; font-weight:bold;">Yükleniyor...</div>
+            <div class="loader-subtext" style="font-size:11px; color:#666;">Lütfen bekleyin...</div>
         </div>
 
         <!-- Üst Header Bar -->
         <header>
             <div class="header-left">
-                <button class="back-btn" id="backBtn" onclick="navTo('home')">
+                <button class="back-btn" id="backBtn" onclick="goBack()">
                     <i class="fa-solid fa-arrow-left"></i>
                 </button>
                 <div class="user-info">
@@ -504,12 +508,8 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button class="header-icon-btn" onclick="alert('Bildiriminiz bulunmamaktadır.')">
-                    <i class="fa-solid fa-bell"></i>
-                </button>
-                <button class="header-icon-btn" onclick="navTo('teachers')">
-                    <i class="fa-solid fa-envelope"></i>
-                </button>
+                <button class="header-icon-btn" onclick="alert('Bildiriminiz bulunmamaktadır.')"><i class="fa-solid fa-bell"></i></button>
+                <button class="header-icon-btn" onclick="navTo('teachers')"><i class="fa-solid fa-envelope"></i></button>
             </div>
         </header>
 
@@ -735,31 +735,113 @@
             <button class="add-event-btn" onclick="alert('Etkinlik ekleme formu açılıyor...')">Etkinlik Ekle</button>
         </div>
 
-        <!-- SAYFA 6: SINAV SONUÇLARI -->
+        <!-- SAYFA 6: SINAV SONUÇLARI LİSTESİ -->
         <div class="page" id="page-exams">
-            <div style="background:white; padding:16px; border-radius:12px; box-shadow:var(--shadow);">
-                <span style="font-size:11px; background:#eff6ff; color:#2563eb; padding:3px 8px; border-radius:6px; font-weight:bold;">LGS - 01</span>
-                <h4 style="margin-top:8px; font-size:15px;">8. SNF BDS-01 (26270801-01)</h4>
-                <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Tarih: 20 Eylül 2026</p>
+            <p style="font-size: 11px; font-weight: bold; color: var(--text-muted); margin-bottom: 8px;">LGS - 01</p>
+            
+            <!-- Eklenen Sınav: BDS-02 -->
+            <div class="exam-item" onclick="openReportCard('BDS-02')">
+                <div>
+                    <h4 style="font-size:14px; color:var(--text-main);">8. SNF BDS-02 (26270802-01)</h4>
+                    <span style="font-size:11px; color:#16a34a; font-weight:bold;">Puan: 497,7690</span>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i>
+            </div>
+
+            <!-- Sınav: BDS-01 -->
+            <div class="exam-item" onclick="openReportCard('BDS-01')">
+                <div>
+                    <h4 style="font-size:14px; color:var(--text-main);">8. SNF BDS-01 (26270801-01)</h4>
+                    <span style="font-size:11px; color:var(--text-muted);">Puan: 359,2260</span>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i>
             </div>
         </div>
 
-        <!-- SAYFA 7: ARAMA GEÇMİŞİ -->
+        <!-- SAYFA 7: KARNE DETAY EKRANI -->
+        <div class="page" id="page-report">
+            <div class="report-tabs">
+                <div class="report-tab active" id="tabFront" onclick="switchTab('front')">Ön Yüz</div>
+                <div class="report-tab" id="tabBack" onclick="switchTab('back')">Arka Yüz</div>
+            </div>
+
+            <!-- ÖN YÜZ -->
+            <div id="frontView" class="report-card">
+                <div class="score-box">
+                    <p>SINAV PUANIM</p>
+                    <h1 id="scoreDisplay">497,7690</h1>
+                    <p style="margin-top:4px; font-size:11px;">Genel Puan Ortalaması: 312,450</p>
+                </div>
+
+                <div class="ranks-grid">
+                    <div class="rank-card">
+                        <span>Sınıf Sırası</span>
+                        <strong id="rankClass">1 / 18</strong>
+                    </div>
+                    <div class="rank-card">
+                        <span>Kurum Sırası</span>
+                        <strong id="rankInst">1 / 63</strong>
+                    </div>
+                    <div class="rank-card">
+                        <span>Genel Sıra</span>
+                        <strong id="rankGen">12 / 2635</strong>
+                    </div>
+                </div>
+
+                <h4 style="font-size:13px; margin-bottom:10px; color:var(--text-main);">Ders Başarı Analizi</h4>
+                <div class="lesson-stats">
+                    <div class="stat-box">
+                        <h5>Türkçe (%100)</h5>
+                        <p class="net-info">20 D | 0 Y | <b>20.00 Net</b></p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Matematik (%95)</h5>
+                        <p class="net-info">19 D | 1 Y | <b>18.67 Net</b></p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Fen Bilimleri (%100)</h5>
+                        <p class="net-info">20 D | 0 Y | <b>20.00 Net</b></p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>İnkılap T. (%100)</h5>
+                        <p class="net-info">10 D | 0 Y | <b>10.00 Net</b></p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Din Kültürü (%100)</h5>
+                        <p class="net-info">10 D | 0 Y | <b>10.00 Net</b></p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Yabancı Dil (%100)</h5>
+                        <p class="net-info">10 D | 0 Y | <b>10.00 Net</b></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARKA YÜZ -->
+            <div id="backView" class="report-card" style="display:none;">
+                <h4 style="font-size:13px; margin-bottom:10px;">Konu Kazanım Analizi</h4>
+                <p style="font-size:12px; color:var(--text-muted);">Tüm derslerde soruların %98'i doğru yanıtlandı. Üstün başarı sergilendi.</p>
+            </div>
+        </div>
+
+        <!-- SAYFA 8: ARAMA GEÇMİŞİ -->
         <div class="page" id="page-history">
             <div style="background:white; padding:16px; border-radius:12px; box-shadow:var(--shadow);">
-                <p style="font-size:13px; color:var(--text-muted); text-align:center;">Henüz kaydedilmiş bir arama geçmişi yok.</p>
+                <p style="font-size:13px; color:var(--text-muted); text-align:center;">Henüz kaydedilmiş bir arama geçmişiniz yok.</p>
             </div>
         </div>
 
-        <!-- Alt Bilgi -->
+        <!-- Footer -->
         <footer>
             <strong>DigitalAYNA</strong> Veli & Öğrenci Portalı
         </footer>
 
     </div>
 
-    <!-- Uygulama JS Mantığı -->
+    <!-- Uygulama JavaScript Mantığı -->
     <script>
+        let historyStack = ['home'];
+
         const pages = {
             'home': { title: 'OSMAN NURİ GÖKÇE', sub: 'Öğrenci (Keçiören Kurs - EB)', back: false },
             'schedule': { title: 'Ders Programı', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
@@ -767,22 +849,31 @@
             'teachers': { title: 'Öğretmenlerim', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
             'agenda': { title: 'Ajandam', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
             'exams': { title: 'Sınav Sonuçları', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'report': { title: 'Kültür Eğitim Karnesi', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
             'history': { title: 'Geçmiş Aramalar', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true }
         };
 
         function navTo(pageId) {
-            // Tüm sayfaları gizle
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            
-            // Hedef sayfayı aç
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.add('active');
 
-            // Header bilgilerini güncelle
             const info = pages[pageId];
             document.getElementById('pageTitle').innerText = info.title;
             document.getElementById('pageSub').innerText = info.sub;
             document.getElementById('backBtn').style.display = info.back ? 'flex' : 'none';
+
+            if (historyStack[historyStack.length - 1] !== pageId) {
+                historyStack.push(pageId);
+            }
+        }
+
+        function goBack() {
+            if (historyStack.length > 1) {
+                historyStack.pop();
+                const prev = historyStack[historyStack.length - 1];
+                navTo(prev);
+            }
         }
 
         function navToWithLoader(pageId, titleText) {
@@ -790,18 +881,52 @@
             document.getElementById('loaderTitle').innerText = titleText + ' Yükleniyor';
             loader.classList.add('active');
 
-            // Videodaki gibi gerçekçi bir yüklenme süresi ekler
             setTimeout(() => {
                 loader.classList.remove('active');
                 navTo(pageId);
+            }, 650);
+        }
+
+        function openReportCard(type) {
+            const loader = document.getElementById('loader');
+            document.getElementById('loaderTitle').innerText = 'Karne Yükleniyor';
+            loader.classList.add('active');
+
+            setTimeout(() => {
+                loader.classList.remove('active');
+                if(type === 'BDS-02') {
+                    document.getElementById('scoreDisplay').innerText = '497,7690';
+                    document.getElementById('rankClass').innerText = '1 / 18';
+                    document.getElementById('rankInst').innerText = '1 / 63';
+                    document.getElementById('rankGen').innerText = '12 / 2635';
+                } else {
+                    document.getElementById('scoreDisplay').innerText = '359,2260';
+                    document.getElementById('rankClass').innerText = '8 / 18';
+                    document.getElementById('rankInst').innerText = '9 / 63';
+                    document.getElementById('rankGen').innerText = '559 / 2635';
+                }
+                navTo('report');
             }, 700);
+        }
+
+        function switchTab(tab) {
+            if(tab === 'front') {
+                document.getElementById('tabFront').classList.add('active');
+                document.getElementById('tabBack').classList.remove('active');
+                document.getElementById('frontView').style.display = 'block';
+                document.getElementById('backView').style.display = 'none';
+            } else {
+                document.getElementById('tabBack').classList.add('active');
+                document.getElementById('tabFront').classList.remove('active');
+                document.getElementById('frontView').style.display = 'none';
+                document.getElementById('backView').style.display = 'block';
+            }
         }
 
         function selectDay(element) {
             document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
             
-            // Yüklenme efekti simülasyonu
             const loader = document.getElementById('loader');
             document.getElementById('loaderTitle').innerText = 'Ders programı yükleniyor';
             loader.classList.add('active');
