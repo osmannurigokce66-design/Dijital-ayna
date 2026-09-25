@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Ayna - Öğrenci Portalı</title>
+    <title>Digital Ayna - Veli & Öğrenci Portalı</title>
     <!-- FontAwesome Icon Kütüphanesi -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00b4d8;
-            --primary-dark: #0077b6;
-            --secondary: #6a0dad;
-            --bg: #f8fafc;
+            --primary: #00a896;
+            --primary-dark: #028090;
+            --accent: #f77f00;
+            --bg-light: #f4f6f9;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-sub: #64748b;
+            --text-main: #2b2d42;
+            --text-muted: #6c757d;
             --border-radius: 16px;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -30,495 +30,785 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
+            background-color: #1e293b;
             display: flex;
             justify-content: center;
             min-height: 100vh;
         }
 
-        /* Mobil Ekran Çerçevesi Konteyneri */
-        .app-container {
+        /* Uygulama Ekranı Çerçevesi */
+        .app-wrapper {
             width: 100%;
-            max-width: 480px;
-            background: #ffffff;
+            max-width: 440px;
+            background: var(--bg-light);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            overflow-x: hidden;
         }
 
-        /* Header / Profil Alanı */
+        /* Header / Üst Bar */
         header {
             background: linear-gradient(135deg, #00b4d8, #0077b6);
             color: white;
-            padding: 20px 20px 25px 20px;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .user-info {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
+        .back-btn {
             background: rgba(255, 255, 255, 0.2);
-            display: flex;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: none; /* Sadece alt sayfalarda görünecek */
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .user-details h3 {
-            font-size: 16px;
+        .user-info h2 {
+            font-size: 15px;
             font-weight: 700;
             letter-spacing: 0.3px;
         }
 
-        .user-details p {
-            font-size: 12px;
+        .user-info p {
+            font-size: 11px;
             opacity: 0.85;
-            margin-top: 2px;
         }
 
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .icon-btn {
+        .header-icon-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             color: white;
-            font-size: 16px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            position: relative;
         }
 
-        .icon-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .badge {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 8px;
-            height: 8px;
-            background-color: #ef4444;
-            border-radius: 50%;
-            border: 2px solid #0077b6;
-        }
-
-        /* İçerik Alanı */
-        main {
-            padding: 20px;
+        /* Sayfa Ekranları */
+        .page {
+            display: none;
+            padding: 16px;
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            animation: fadeIn 0.25s ease-in-out;
         }
 
-        /* Banner Kartı */
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ANA SAYFA --- */
         .banner {
-            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            background: linear-gradient(135deg, #6b21a8, #3b0764);
             border-radius: var(--border-radius);
             padding: 20px;
             color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
+            box-shadow: 0 8px 16px rgba(107, 33, 168, 0.25);
         }
 
-        .banner-text {
-            z-index: 1;
-            max-width: 65%;
-        }
-
-        .banner-text span {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .banner-text h2 {
+        .banner h3 {
             font-size: 18px;
-            margin: 8px 0 4px 0;
             font-weight: 700;
         }
 
-        .banner-text p {
+        .banner p {
             font-size: 12px;
             opacity: 0.8;
+            margin-top: 4px;
         }
 
-        .banner-icon {
-            font-size: 60px;
-            opacity: 0.15;
-            position: absolute;
-            right: -10px;
-            bottom: -10px;
-        }
-
-        .banner-btn {
-            margin-top: 10px;
-            background: #ffffff;
-            color: #7c3aed;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
+        .banner .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
             font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.2s;
+            margin-bottom: 8px;
         }
 
-        .banner-btn:hover {
-            background: #f3e8ff;
-        }
-
-        /* Menü Izgarası (Grid) */
-        .grid-container {
+        .menu-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
 
-        .menu-card {
+        .menu-item {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 16px 10px;
+            padding: 16px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            text-align: center;
             gap: 10px;
-            border: 1px solid #f1f5f9;
             box-shadow: var(--shadow);
             cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
         }
 
-        .menu-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08);
-            border-color: #e2e8f0;
+        .menu-item:active {
+            transform: scale(0.95);
         }
 
-        .menu-card:active {
-            transform: scale(0.96);
-        }
-
-        .icon-wrapper {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+        .menu-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            transition: 0.2s;
+            font-size: 20px;
         }
 
-        .menu-card p {
+        .menu-item span {
             font-size: 12px;
             font-weight: 600;
             color: var(--text-main);
-            line-height: 1.3;
         }
 
-        /* Renk Temaları */
-        .c-orange { background: #fff7ed; color: #f97316; }
-        .c-blue { background: #eff6ff; color: #3b82f6; }
-        .c-green { background: #f0fdf4; color: #22c55e; }
-        .c-red { background: #fef2f2; color: #ef4444; }
-        .c-purple { background: #faf5ff; color: #a855f7; }
-        .c-teal { background: #f0fdfa; color: #14b8a6; }
-        .c-indigo { background: #eef2ff; color: #6366f1; }
-        .c-gray { background: #f8fafc; color: #64748b; }
+        /* Renk Paleti */
+        .bg-orange { background: #fff3ed; color: #f97316; }
+        .bg-blue { background: #eff6ff; color: #2563eb; }
+        .bg-green { background: #f0fdf4; color: #16a34a; }
+        .bg-red { background: #fef2f2; color: #dc2626; }
+        .bg-purple { background: #faf5ff; color: #9333ea; }
+        .bg-teal { background: #f0fdfa; color: #0d9488; }
+        .bg-gray { background: #f8fafc; color: #475569; }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 11px;
-            color: var(--text-sub);
-            border-top: 1px solid #f1f5f9;
-        }
-
-        footer strong {
-            color: var(--primary-dark);
-        }
-
-        /* Modal (Açılır Pencere) Stilleri */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background: white;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: translateY(0);
-        }
-
-        .modal-header {
+        /* --- DERS PROGRAMI SAYFASI --- */
+        .week-selector {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .days-bar {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding-bottom: 8px;
             margin-bottom: 16px;
         }
 
-        .modal-header h3 {
-            font-size: 18px;
+        .day-btn {
+            flex: 1;
+            min-width: 50px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 8px 4px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .day-btn.active {
+            background: #f97316;
+            color: white;
+            border-color: #f97316;
+            font-weight: bold;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-info h4 {
+            font-size: 14px;
             color: var(--text-main);
         }
 
-        .close-btn {
+        .lesson-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .lesson-time {
+            font-size: 11px;
+            font-weight: 700;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 8px;
+            color: var(--text-main);
+        }
+
+        /* --- ÖDEVLER SAYFASI --- */
+        .hw-card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+        }
+
+        .hw-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .hw-title {
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .hw-teacher {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .hw-dates {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .hw-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .badge-done {
+            color: #16a34a;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .badge-pending {
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* --- ÖĞRETMENLERİM SAYFASI --- */
+        .teacher-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .teacher-info h4 {
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .teacher-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .msg-btn {
             background: #f1f5f9;
             border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            color: #0077b6;
             cursor: pointer;
-            color: var(--text-sub);
-            font-size: 14px;
         }
 
-        .modal-body {
-            font-size: 14px;
-            color: var(--text-sub);
-            line-height: 1.5;
+        /* --- AJANDAM SAYFASI --- */
+        .calendar-box {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
         }
 
-        .qr-placeholder {
-            width: 180px;
-            height: 180px;
-            margin: 15px auto;
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
+        .calendar-header {
             display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .calendar-day-head {
+            font-weight: bold;
+            color: var(--text-muted);
+            padding-bottom: 6px;
+        }
+
+        .calendar-date {
+            padding: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .calendar-date.active {
+            background: #00b4d8;
+            color: white;
+            font-weight: bold;
+        }
+
+        .add-event-btn {
+            width: 100%;
+            background: #00b4d8;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+        }
+
+        /* --- YÜKLENİYOR (LOADING) OVERLAY --- */
+        .loader-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text-sub);
-            gap: 10px;
+            z-index: 200;
+        }
+
+        .loader-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f97316;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            margin-top: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .loader-subtext {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            background: white;
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Header / Profil -->
+    <div class="app-wrapper">
+        
+        <!-- Yükleniyor Simülasyon Ekranı -->
+        <div class="loader-overlay" id="loader">
+            <div class="spinner"></div>
+            <div class="loader-text" id="loaderTitle">Lütfen bekleyin...</div>
+            <div class="loader-subtext">Veriler yükleniyor</div>
+        </div>
+
+        <!-- Üst Header Bar -->
         <header>
-            <div class="user-info">
-                <div class="avatar">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="user-details">
-                    <h3>OSMAN NURİ GÖKÇE</h3>
-                    <p>Öğrenci (Keçiören Kurs - EB)</p>
+            <div class="header-left">
+                <button class="back-btn" id="backBtn" onclick="navTo('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="user-info">
+                    <h2 id="pageTitle">OSMAN NURİ GÖKÇE</h2>
+                    <p id="pageSub">Öğrenci (Keçiören Kurs - EB)</p>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="icon-btn" onclick="openModal('Bildirimler', 'Henüz okunmamış bildiriminiz bulunmamaktadır.')">
+                <button class="header-icon-btn" onclick="alert('Bildiriminiz bulunmamaktadır.')">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge"></span>
                 </button>
-                <button class="icon-btn" onclick="openModal('Mesajlar', 'Danışman öğretmeninizden yeni bir mesajınız var: &quot;Yarınki etütü unutma!&quot;')">
+                <button class="header-icon-btn" onclick="navTo('teachers')">
                     <i class="fa-solid fa-envelope"></i>
                 </button>
             </div>
         </header>
 
-        <!-- İçerik -->
-        <main>
-            <!-- Banner -->
+        <!-- SAYFA 1: ANA SAYFA -->
+        <div class="page active" id="page-home">
             <div class="banner">
-                <div class="banner-text">
-                    <span>Digital AYNA</span>
-                    <h2>Eğitime Online Bağlan</h2>
-                    <p>Öğrenci başarı takip sistemi ile derslerine her yerden eriş.</p>
-                    <button class="banner-btn" onclick="openModal('Digital Ayna Portal', 'Online portal platformuna yönlendiriliyorsunuz...')">Sisteme Git</button>
-                </div>
-                <i class="fa-solid fa-laptop-code banner-icon"></i>
+                <span class="tag">Digital AYNA</span>
+                <h3>Eğitime Online Bağlan</h3>
+                <p>Öğrenci başarı takip sistemi ile ders takibi yapın.</p>
             </div>
 
-            <!-- Menü Izgarası -->
-            <div class="grid-container">
-                
-                <!-- 1. QR Giriş -->
-                <div class="menu-card" onclick="openQRModal()">
-                    <div class="icon-wrapper c-orange">
-                        <i class="fa-solid fa-qrcode"></i>
-                    </div>
-                    <p>QR ile Giriş</p>
+            <div class="menu-grid">
+                <div class="menu-item" onclick="alert('QR Kamera taraması başlatıldı...')">
+                    <div class="menu-icon bg-orange"><i class="fa-solid fa-qrcode"></i></div>
+                    <span>QR ile Giriş</span>
                 </div>
-
-                <!-- 2. Ajandam -->
-                <div class="menu-card" onclick="openModal('Ajandam', '📅 <b>Bugünün Planı:</b><br>- 16:00 Matematik Etütü<br>- 18:00 Paragraf Çözümü')">
-                    <div class="icon-wrapper c-blue">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-                    <p>Ajandam</p>
+                <div class="menu-item" onclick="navTo('agenda')">
+                    <div class="menu-icon bg-blue"><i class="fa-solid fa-calendar-days"></i></div>
+                    <span>Ajandam</span>
                 </div>
-
-                <!-- 3. Öğretmenlerim -->
-                <div class="menu-card" onclick="openModal('Öğretmenlerim', '👨‍🏫 <b>Matematik:</b> Ahmet Yılaz<br>👩‍🏫 <b>Fizik:</b> Ayşe Kaya<br>👨‍🏫 <b>Türkçe:</b> Mehmet Demir')">
-                    <div class="icon-wrapper c-green">
-                        <i class="fa-solid fa-user-graduate"></i>
-                    </div>
-                    <p>Öğretmenlerim</p>
+                <div class="menu-item" onclick="navTo('teachers')">
+                    <div class="menu-icon bg-green"><i class="fa-solid fa-users"></i></div>
+                    <span>Öğretmenlerim</span>
                 </div>
-
-                <!-- 4. Sınav Sonuçlarım -->
-                <div class="menu-card" onclick="openModal('Sınav Sonuçlarım', '📊 <b>Son TYT Denemesi:</b><br>Puan: 385.40<br>Kurum Sıralaması: 12/140')">
-                    <div class="icon-wrapper c-red">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <p>Sınav Sonuçlarım</p>
+                <div class="menu-item" onclick="navToWithLoader('exams', 'Sınav Sonuçları')">
+                    <div class="menu-icon bg-red"><i class="fa-solid fa-square-poll-vertical"></i></div>
+                    <span>Sınav Sonuçlarım</span>
                 </div>
-
-                <!-- 5. Ders Programı -->
-                <div class="menu-card" onclick="openModal('Ders Programı', '📚 <b>Bugünkü Dersler:</b><br>1. Matematik (09:00)<br>2. Fizik (10:40)<br>3. Kimya (13:00)')">
-                    <div class="icon-wrapper c-purple">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <p>Ders Programı</p>
+                <div class="menu-item" onclick="navToWithLoader('schedule', 'Ders Programı')">
+                    <div class="menu-icon bg-purple"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <span>Ders Programı</span>
                 </div>
-
-                <!-- 6. Ödevler -->
-                <div class="menu-card" onclick="openModal('Ödevlerim', '📝 <b>Aktif Ödevler:</b><br>1. Fizik Test 4-5 (Teslim: Yarın)<br>2. Matematik Problem Seti (Teslim: Cuma)')">
-                    <div class="icon-wrapper c-teal">
-                        <i class="fa-solid fa-book-open"></i>
-                    </div>
-                    <p>Ödevler</p>
+                <div class="menu-item" onclick="navTo('homework')">
+                    <div class="menu-icon bg-teal"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <span>Ödevler</span>
                 </div>
-
-                <!-- 7. Arama Geçmişi -->
-                <div class="menu-card" onclick="openModal('Arama Geçmişi', '🔍 Son aratılan konular:<br>- İkinci Dereceden Denklemler<br>- Optik')">
-                    <div class="icon-wrapper c-indigo">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </div>
-                    <p>Arama Geçmişi</p>
+                <div class="menu-item" onclick="navToWithLoader('history', 'Arama Geçmişi')">
+                    <div class="menu-icon bg-gray"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <span>Arama Geçmişi</span>
                 </div>
-
-                <!-- 8. Web'e Git -->
-                <div class="menu-card" onclick="window.open('https://google.com', '_blank')">
-                    <div class="icon-wrapper c-gray">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </div>
-                    <p>Web'e Git</p>
+                <div class="menu-item" onclick="window.open('https://google.com', '_blank')">
+                    <div class="menu-icon bg-orange"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <span>Web'e Git</span>
                 </div>
-
             </div>
-        </main>
+        </div>
 
-        <!-- Footer -->
+        <!-- SAYFA 2: DERS PROGRAMI -->
+        <div class="page" id="page-schedule">
+            <div class="week-selector">
+                <i class="fa-solid fa-chevron-left" style="cursor:pointer;"></i>
+                <span>21 Eylül - 27 Eylül</span>
+                <i class="fa-solid fa-chevron-right" style="cursor:pointer;"></i>
+            </div>
+
+            <div class="days-bar">
+                <div class="day-btn" onclick="selectDay(this)">21 Eylül<br>P.tsi</div>
+                <div class="day-btn" onclick="selectDay(this)">22 Eylül<br>Salı</div>
+                <div class="day-btn" onclick="selectDay(this)">23 Eylül<br>Çar.</div>
+                <div class="day-btn" onclick="selectDay(this)">24 Eylül<br>Per.</div>
+                <div class="day-btn" onclick="selectDay(this)">25 Eylül<br>Cuma</div>
+                <div class="day-btn active" onclick="selectDay(this)">26 Eylül<br>C.tesi</div>
+                <div class="day-btn" onclick="selectDay(this)">27 Eylül<br>Pazar</div>
+            </div>
+
+            <div id="lessonsContainer">
+                <div class="lesson-card">
+                    <div class="lesson-info">
+                        <h4>DİN KÜLTÜRÜ VE AHLAK BİLGİSİ</h4>
+                        <p>TÜLİN AKGÜN</p>
+                    </div>
+                    <div class="lesson-time">08:30 - 09:10</div>
+                </div>
+                <div class="lesson-card">
+                    <div class="lesson-info">
+                        <h4>MATEMATİK</h4>
+                        <p>ALİ FURKAN ERTURAN</p>
+                    </div>
+                    <div class="lesson-time">09:20 - 10:00</div>
+                </div>
+                <div class="lesson-card">
+                    <div class="lesson-info">
+                        <h4>MATEMATİK</h4>
+                        <p>ALİ FURKAN ERTURAN</p>
+                    </div>
+                    <div class="lesson-time">10:10 - 10:50</div>
+                </div>
+                <div class="lesson-card">
+                    <div class="lesson-info">
+                        <h4>TÜRKÇE</h4>
+                        <p>BENGİ DUĞAN</p>
+                    </div>
+                    <div class="lesson-time">11:00 - 11:40</div>
+                </div>
+                <div class="lesson-card">
+                    <div class="lesson-info">
+                        <h4>TÜRKÇE</h4>
+                        <p>BENGİ DUĞAN</p>
+                    </div>
+                    <div class="lesson-time">11:50 - 12:30</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAYFA 3: ÖDEVLER -->
+        <div class="page" id="page-homework">
+            <div class="hw-card">
+                <div class="hw-header">
+                    <span class="hw-title">Matematik / Dergi-2</span>
+                    <span class="hw-teacher">ALİ FURKAN ERTURAN</span>
+                </div>
+                <div class="hw-dates">Veriliş: 22 Eylül | Teslim: 29 Eylül</div>
+                <div class="hw-status">
+                    <span>Durum</span>
+                    <span class="badge-pending"><i class="fa-solid fa-circle-xmark"></i> Kontrol edilmedi</span>
+                </div>
+            </div>
+
+            <div class="hw-card">
+                <div class="hw-header">
+                    <span class="hw-title">Türkçe / Fiilimsi</span>
+                    <span class="hw-teacher">BENGİ DUĞAN</span>
+                </div>
+                <div class="hw-dates">Veriliş: 19 Eylül | Teslim: 22 Eylül</div>
+                <div class="hw-status">
+                    <span>Durum</span>
+                    <span class="badge-done"><i class="fa-solid fa-circle-check"></i> Tam Yapıldı</span>
+                </div>
+            </div>
+
+            <div class="hw-card">
+                <div class="hw-header">
+                    <span class="hw-title">İngilizce / Homework Set</span>
+                    <span class="hw-teacher">EYLÜL AÇIKGÖZ</span>
+                </div>
+                <div class="hw-dates">Veriliş: 10 Eylül | Teslim: 20 Eylül</div>
+                <div class="hw-status">
+                    <span>Durum</span>
+                    <span class="badge-done"><i class="fa-solid fa-circle-check"></i> Tam Yapıldı</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAYFA 4: ÖĞRETMENLERİM -->
+        <div class="page" id="page-teachers">
+            <div class="teacher-card">
+                <div class="teacher-info">
+                    <h4>TÜLİN AKGÜN</h4>
+                    <p>Din Kültürü ve Ahlak Bilgisi</p>
+                </div>
+                <button class="msg-btn" onclick="alert('Tülin Akgün ile mesajlaşma açılıyor...')"><i class="fa-solid fa-envelope"></i></button>
+            </div>
+            <div class="teacher-card">
+                <div class="teacher-info">
+                    <h4>RÜMEYSA AKTÜRK</h4>
+                    <p>Fen Bilimleri</p>
+                </div>
+                <button class="msg-btn" onclick="alert('Rümeysa Aktürk ile mesajlaşma açılıyor...')"><i class="fa-solid fa-envelope"></i></button>
+            </div>
+            <div class="teacher-card">
+                <div class="teacher-info">
+                    <h4>ALİ FURKAN ERTURAN</h4>
+                    <p>Matematik</p>
+                </div>
+                <button class="msg-btn" onclick="alert('Ali Furkan Erturan ile mesajlaşma açılıyor...')"><i class="fa-solid fa-envelope"></i></button>
+            </div>
+            <div class="teacher-card">
+                <div class="teacher-info">
+                    <h4>BENGİ DUĞAN</h4>
+                    <p>Türkçe</p>
+                </div>
+                <button class="msg-btn" onclick="alert('Bengi Duğan ile mesajlaşma açılıyor...')"><i class="fa-solid fa-envelope"></i></button>
+            </div>
+        </div>
+
+        <!-- SAYFA 5: AJANDAM -->
+        <div class="page" id="page-agenda">
+            <div class="calendar-box">
+                <div class="calendar-header">
+                    <i class="fa-solid fa-chevron-left" style="cursor:pointer;"></i>
+                    <span>Eylül 2026</span>
+                    <i class="fa-solid fa-chevron-right" style="cursor:pointer;"></i>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-head">Pzt</div>
+                    <div class="calendar-day-head">Sal</div>
+                    <div class="calendar-day-head">Çar</div>
+                    <div class="calendar-day-head">Per</div>
+                    <div class="calendar-day-head">Cum</div>
+                    <div class="calendar-day-head">Cmt</div>
+                    <div class="calendar-day-head">Pzr</div>
+
+                    <div class="calendar-date" style="opacity:0.3;">31</div>
+                    <div class="calendar-date">1</div>
+                    <div class="calendar-date">2</div>
+                    <div class="calendar-date">3</div>
+                    <div class="calendar-date">4</div>
+                    <div class="calendar-date">5</div>
+                    <div class="calendar-date">6</div>
+                    <div class="calendar-date">7</div>
+                    <div class="calendar-date">8</div>
+                    <div class="calendar-date">9</div>
+                    <div class="calendar-date">10</div>
+                    <div class="calendar-date">11</div>
+                    <div class="calendar-date">12</div>
+                    <div class="calendar-date">13</div>
+                    <div class="calendar-date">14</div>
+                    <div class="calendar-date">15</div>
+                    <div class="calendar-date">16</div>
+                    <div class="calendar-date">17</div>
+                    <div class="calendar-date">18</div>
+                    <div class="calendar-date">19</div>
+                    <div class="calendar-date">20</div>
+                    <div class="calendar-date">21</div>
+                    <div class="calendar-date">22</div>
+                    <div class="calendar-date">23</div>
+                    <div class="calendar-date active">24</div>
+                    <div class="calendar-date">25</div>
+                    <div class="calendar-date">26</div>
+                    <div class="calendar-date">27</div>
+                </div>
+            </div>
+            <button class="add-event-btn" onclick="alert('Etkinlik ekleme formu açılıyor...')">Etkinlik Ekle</button>
+        </div>
+
+        <!-- SAYFA 6: SINAV SONUÇLARI -->
+        <div class="page" id="page-exams">
+            <div style="background:white; padding:16px; border-radius:12px; box-shadow:var(--shadow);">
+                <span style="font-size:11px; background:#eff6ff; color:#2563eb; padding:3px 8px; border-radius:6px; font-weight:bold;">LGS - 01</span>
+                <h4 style="margin-top:8px; font-size:15px;">8. SNF BDS-01 (26270801-01)</h4>
+                <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Tarih: 20 Eylül 2026</p>
+            </div>
+        </div>
+
+        <!-- SAYFA 7: ARAMA GEÇMİŞİ -->
+        <div class="page" id="page-history">
+            <div style="background:white; padding:16px; border-radius:12px; box-shadow:var(--shadow);">
+                <p style="font-size:13px; color:var(--text-muted); text-align:center;">Henüz kaydedilmiş bir arama geçmişi yok.</p>
+            </div>
+        </div>
+
+        <!-- Alt Bilgi -->
         <footer>
             <strong>DigitalAYNA</strong> Veli & Öğrenci Portalı
         </footer>
+
     </div>
 
-    <!-- Dinamik Modal Yapısı -->
-    <div class="modal-overlay" id="customModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="modalTitle">Başlık</h3>
-                <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                İçerik buraya gelecek...
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Fonksiyonları -->
+    <!-- Uygulama JS Mantığı -->
     <script>
-        const modalOverlay = id = document.getElementById('customModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
+        const pages = {
+            'home': { title: 'OSMAN NURİ GÖKÇE', sub: 'Öğrenci (Keçiören Kurs - EB)', back: false },
+            'schedule': { title: 'Ders Programı', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'homework': { title: 'Ödevler', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'teachers': { title: 'Öğretmenlerim', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'agenda': { title: 'Ajandam', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'exams': { title: 'Sınav Sonuçları', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true },
+            'history': { title: 'Geçmiş Aramalar', sub: 'OSMAN NURİ GÖKÇE (Öğrenci)', back: true }
+        };
 
-        function openModal(title, content) {
-            modalTitle.innerText = title;
-            modalBody.innerHTML = content;
-            modalOverlay.classList.add('active');
+        function navTo(pageId) {
+            // Tüm sayfaları gizle
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // Hedef sayfayı aç
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.add('active');
+
+            // Header bilgilerini güncelle
+            const info = pages[pageId];
+            document.getElementById('pageTitle').innerText = info.title;
+            document.getElementById('pageSub').innerText = info.sub;
+            document.getElementById('backBtn').style.display = info.back ? 'flex' : 'none';
         }
 
-        function openQRModal() {
-            modalTitle.innerText = "QR Kod Okuyucu";
-            modalBody.innerHTML = `
-                <p style="text-align:center;">Turnike veya derse giriş için QR kodunuzu okutun.</p>
-                <div class="qr-placeholder">
-                    <i class="fa-solid fa-qrcode" style="font-size: 60px; color: var(--primary);"></i>
-                    <span style="font-size:12px;">Kamera taranıyor...</span>
-                </div>
-            `;
-            modalOverlay.classList.add('active');
+        function navToWithLoader(pageId, titleText) {
+            const loader = document.getElementById('loader');
+            document.getElementById('loaderTitle').innerText = titleText + ' Yükleniyor';
+            loader.classList.add('active');
+
+            // Videodaki gibi gerçekçi bir yüklenme süresi ekler
+            setTimeout(() => {
+                loader.classList.remove('active');
+                navTo(pageId);
+            }, 700);
         }
 
-        function closeModal() {
-            modalOverlay.classList.remove('active');
+        function selectDay(element) {
+            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Yüklenme efekti simülasyonu
+            const loader = document.getElementById('loader');
+            document.getElementById('loaderTitle').innerText = 'Ders programı yükleniyor';
+            loader.classList.add('active');
+            setTimeout(() => {
+                loader.classList.remove('active');
+            }, 400);
         }
-
-        // Modal dışına tıklayınca kapatma
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
     </script>
 </body>
 </html>
